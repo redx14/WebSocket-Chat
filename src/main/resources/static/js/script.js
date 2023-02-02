@@ -57,24 +57,28 @@ const sendMessage = (event) => {
 const onMessageReceived = (payload) => {
     const message = JSON.parse(payload.body);
 
-    const chatCard = document.createElement('div')
+    const chatCard = document.createElement('div') //chat 
     chatCard.className = 'card-body'
 
-    const flexBox = document.createElement('div')
-    flexBox.className = 'd-flex justify-content-end mb-4'
-    chatCard.appendChild(flexBox)
+    const flexBox = document.createElement('div') //message container
+    flexBox.className = 'msg'
 
-    const messageElement = document.createElement('div')
+    const messageElement = document.createElement('div') //user sent message
     messageElement.className = 'msg_container_send'
 
-    flexBox.appendChild(messageElement)
+    const info = document.createElement('div') //user info and time
+    info.className = 'credentials'
+
+    chatCard.appendChild(flexBox) //adds message container to chat
+    flexBox.appendChild(info) //adds user info and time
+    flexBox.appendChild(messageElement) //adds message
 
     if (message.type === 'CONNECTED') {
         messageElement.classList.add('event-message')
-        message.content = message.sender + ' connected!'
+        message.content = message.sender + ' has joined the chat!'
     } else if (message.type === 'DISCONNECTED') {
         messageElement.classList.add('event-message')
-        message.content = message.sender + ' left!'
+        message.content = message.sender + ' has left the chat!'
     } else {
         messageElement.classList.add('chat-message')
 
@@ -89,20 +93,19 @@ const onMessageReceived = (payload) => {
 
         messageElement.style['background-color'] = getAvatarColor(message.sender)
 
-        flexBox.appendChild(avatarContainer)
-
-        const time = document.createElement('span')
+        let time = document.createElement('p')
         time.className = 'msg_time_send'
         time.innerHTML = message.time
-        messageElement.appendChild(time)
+        console.log(time)
+        info.appendChild(time)
 
+        info.appendChild(avatarContainer)
     }
 
     messageElement.innerHTML = message.content
-
     const chat = document.querySelector('#chat')
     chat.appendChild(flexBox)
-    chat.scrollTop = chat.scrollHeight
+    chat.scrollBottom = chat.scrollHeight
 }
 
 const hashCode = (str) => {

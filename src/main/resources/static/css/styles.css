@@ -23,6 +23,10 @@ body,html {
     border-top: 0 !important;
 }
 
+.credintials {
+    
+}
+
 .user_img {
     height: 70px;
     width: 70px;
@@ -52,19 +56,24 @@ body,html {
 }
 
 .msg_container_send {
-    margin-top: auto;
-    margin-bottom: auto;
-    margin-right: 10px;
-    border-radius: 25px;
+    display: block;
+    margin-right: 5px;
+    border-radius: 20px;
     padding: 10px;
     position: relative;
     color:white;
 }
 
+.msg {
+    display: block;
+    justify-content: end;
+    margin-bottom: 4px;
+}
+
 .msg_time_send {
-    position: absolute;
-    right:0;
-    bottom: -20px;
+    position: relative;
+    margin: 10px;
+    align-self: center;
     color: rgba(255,255,255,0.5);
     font-size: 10px;
     width: max-content;
