@@ -41,7 +41,6 @@ const onError = (error) => {
 }
 
 const sendMessage = (event) => {
-    console.log("send")
     const messageInput = document.querySelector('#message')
     const messageContent = messageInput.value.trim()
 
@@ -60,7 +59,6 @@ const sendMessage = (event) => {
 }
 
 const onMessageReceived = (payload) => {
-    console.log("received")
     const message = JSON.parse(payload.body);
 
     const chatCard = document.createElement('div') //chat 
@@ -135,7 +133,6 @@ const messageControls = document.querySelector('#message-controls')
 messageControls.addEventListener('submit', sendMessage)
 messageControls.addEventListener('keydown', ({key}) => {
     if (key === 'Enter'){
-        // messageControls.submit()
         sendMessage()
     }
 })
