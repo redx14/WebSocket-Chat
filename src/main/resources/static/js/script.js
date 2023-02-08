@@ -4,11 +4,12 @@ let stompClient
 let username
 
 const connect = (event) => {
+    console.log("connect")
     username = document.querySelector('#username').value.trim()
 
     if (username) {
         const login = document.querySelector('#login')
-        login.classList.add('hide')
+        login.parentNode.removeChild(login)
 
         const chatPage = document.querySelector('#chat-page')
         chatPage.classList.remove('hide')
@@ -18,25 +19,29 @@ const connect = (event) => {
         stompClient.connect({}, onConnected, onError)
     }
     event.preventDefault()
+    
 }
 
 const onConnected = () => {
+    console.log("connected")
     stompClient.subscribe('/topic/public', onMessageReceived)
     stompClient.send("/app/chat.newUser",
         {},
         JSON.stringify({sender: username, type: 'CONNECTED'})
     )
     const status = document.querySelector('#status')
-    status.className = 'hide'
+    status.parentNode.removeChild(status)
 }
 
 const onError = (error) => {
+    console.log("error")
     const status = document.querySelector('#status')
     status.innerHTML = 'Could not find the connection you were looking for. Move along. Or, Refresh the page!'
     status.style.color = 'red'
 }
 
 const sendMessage = (event) => {
+    console.log("send")
     const messageInput = document.querySelector('#message')
     const messageContent = messageInput.value.trim()
 
@@ -50,11 +55,12 @@ const sendMessage = (event) => {
         stompClient.send("/app/chat.send", {}, JSON.stringify(chatMessage))
         messageInput.value = ''
     }
+    event.stopPropagation();
     event.preventDefault();
 }
 
-
 const onMessageReceived = (payload) => {
+    console.log("received")
     const message = JSON.parse(payload.body);
 
     const chatCard = document.createElement('div') //chat 
@@ -116,7 +122,6 @@ const hashCode = (str) => {
     return hash
 }
 
-
 const getAvatarColor = (messageSender) => {
     const colours = ['#2196F3', '#32c787', '#1BC6B4', '#A1B4C4']
     const index = Math.abs(hashCode(messageSender) % colours.length)
@@ -125,5 +130,12 @@ const getAvatarColor = (messageSender) => {
 
 const loginForm = document.querySelector('#login-form')
 loginForm.addEventListener('submit', connect, true)
+
 const messageControls = document.querySelector('#message-controls')
-messageControls.addEventListener('submit', sendMessage, true)
+messageControls.addEventListener('submit', sendMessage)
+messageControls.addEventListener('keydown', ({key}) => {
+    if (key === 'Enter'){
+        // messageControls.submit()
+        sendMessage()
+    }
+})

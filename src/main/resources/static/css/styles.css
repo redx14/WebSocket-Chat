@@ -23,8 +23,8 @@ body,html {
     border-top: 0 !important;
 }
 
-.credintials {
-    
+.credentials {
+    margin-bottom: 4px;
 }
 
 .user_img {
@@ -56,11 +56,11 @@ body,html {
 }
 
 .msg_container_send {
-    display: block;
+    display: inline-flex;
+    word-wrap: break-word;
     margin-right: 5px;
     border-radius: 20px;
     padding: 10px;
-    position: relative;
     color:white;
 }
 
@@ -72,8 +72,8 @@ body,html {
 
 .msg_time_send {
     position: relative;
+    text-align: center;
     margin: 10px;
-    align-self: center;
     color: rgba(255,255,255,0.5);
     font-size: 10px;
     width: max-content;

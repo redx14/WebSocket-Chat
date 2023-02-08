@@ -12,7 +12,7 @@ public class WebSocketsMessageConfig implements WebSocketMessageBrokerConfigurer
     @Override
     // STOMP = Stream Text Oriented Messaging Protocol
     public void registerStompEndpoints(final StompEndpointRegistry registry){
-        registry.addEndpoint("/chat-example").withSockJS(); //brower javascript library
+        registry.addEndpoint("/chat-example").withSockJS(); //browser javascript library
     }
 
     @Override
